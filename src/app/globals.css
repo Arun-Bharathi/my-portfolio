@@ -1,8 +1,24 @@
 @import "tailwindcss";
 
+/* Class-based dark mode (toggled by the header switch) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --background: #f8fbff;
+  --foreground: #0f172a;
+  --page-glow: rgb(219 234 254 / 0.9);
+  --page-top: #f8fbff;
+  --page-bottom: #eef5ff;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #020617;
+  --foreground: #f1f5f9;
+  --page-glow: rgb(30 58 138 / 0.35);
+  --page-top: #020617;
+  --page-bottom: #0b1224;
 }
 
 @theme inline {
@@ -12,15 +28,18 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
 }
 
+/* One body rule; the theme only swaps the variables above */
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image:
+    radial-gradient(1200px 600px at 85% -10%, var(--page-glow), transparent 60%),
+    linear-gradient(180deg, var(--page-top) 0%, var(--page-bottom) 100%);
+  background-attachment: fixed;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
